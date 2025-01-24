@@ -1,42 +1,115 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			people: [], 
+			planets: [],
+			vehicles: [],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+			
+			getAllStarWarsPeople: async () => {
+				try{
+					const response = await fetch("https://www.swapi.tech/api/people");
+
+					if(!response.ok) throw new Error(response.statusText);
+
+					const fetchData = await response.json();
+
+					if(fetchData) setStore({people: fetchData.results});
+
+					console.log(getStore().people);
+
+				}catch(error){
+					console.log(error);
+				}
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+			getSinglePeople: async (uid) => {
+				try{
 
-				//reset the global store
-				setStore({ demo: demo });
+					const response = await fetch(`https://www.swapi.tech/api/people/${uid}`);
+
+					if(!response.ok) throw new Error(response.statusText);
+
+					const fetchData = await response.json();
+
+					return fetchData.result;
+
+				}catch(error) {
+					console.log(error);
+				}
+			}, 
+
+			getAllStarWarsPlanets: async () => {
+				try{
+
+					const response = await fetch("https://www.swapi.tech/api/planets");
+
+					if(!response.ok) throw new Error(response.statusText);
+
+					const fetchData = await response.json();
+
+					if(fetchData) setStore({planets: fetchData.results});
+
+					console.log(getStore().planets);						
+
+				}catch(error){
+					console.log(error);
+				}
+			}, 
+
+			getSinglePlanet: async (uid) => {
+				try{
+
+					const response = await fetch(`https://www.swapi.tech/api/planets/${uid}`);
+
+					if(!response.ok) throw new Error(response.statusText);
+
+					const fetchData = await response.json();
+
+					return fetchData.result;
+
+				}catch(error){
+					console.log(error);
+				}
+			}, 
+			
+			getAllStarWarsVehicles : async () => {
+				try{
+
+					const response = await fetch("https://www.swapi.tech/api/vehicles");
+
+					if(!response.ok) throw new Error(response.statusText);
+
+					const fetchData = await response.json();
+
+					if(fetchData) setStore({vehicles: fetchData.results});
+
+					console.log(getStore().vehicles);
+
+				}catch(error){
+					console.log(error);
+				}
+			}, 
+
+			getSingleVehicle: async (uid) => {
+				try{
+
+					const response = await fetch(`https://www.swapi.tech/api/vehicles/${uid}`)
+
+					if(!response.ok) throw new Error(response.statusText);
+
+					const fetchData = await response.json();
+
+					return fetchData.result;
+
+				}catch(error){
+					console.log(error);
+				}
 			}
 		}
 	};
