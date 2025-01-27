@@ -1,15 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FavoritesDropDown from "./FavoritesDropDown.jsx";
+
+import StarWarsLogo from "../../img/StarWarsLogo.png"
 
 export const Navbar = () => {
 	return (
 		<nav className="navbar navbar-light bg-light mb-3">
 			<Link to="/">
-				<span className="navbar-brand mb-0 h1">React Boilerplate</span>
+				<img src={StarWarsLogo} className="img img-fluid h-25 w-25 ms-4"/>
 			</Link>
-			<div className="ml-auto">
+			<div className="ml-auto me-5">
 				<Link to="/demo">
-					<button className="btn btn-primary">Check the Context in action</button>
+					<FavoritesDropDown/>
 				</Link>
 			</div>
 		</nav>
