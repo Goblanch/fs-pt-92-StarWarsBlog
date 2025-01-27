@@ -1,16 +1,21 @@
-import React from "react";
+import React, { Children, useContext, useEffect } from "react";
+import { Context } from "../store/appContext.js";
 import InfoCard from "./InfoCard.jsx";
 
-const CardGroup = () => {
+const CardGroup = ({ children, title }) => {
 
-    const info = {
-        name: "Persona",
-        data: ["Estatura: 185", "Color de ojos: 200", "Pelo: azul"]
-    }
 
     return (
-        <InfoCard properties={info} />
+        <div>
+            <h2 className="text text-danger">{title}</h2>
+            <div className="d-flex overflow-auto space-x-4 p-4">
+                {React.Children.map(children, (child, key) => (
+                    <div className="flex-shrink-0 w-64 me-4" key={key}>{child}</div>
+                ))}
+            </div>
+        </div>
     )
+
 }
 
 export default CardGroup;

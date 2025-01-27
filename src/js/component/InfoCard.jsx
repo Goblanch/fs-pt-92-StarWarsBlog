@@ -11,9 +11,6 @@ const InfoCard = ({ properties }) => {
                 {properties.data.map((data) => (
                     <p className="card-text">{data}</p>
                 ))}
-                {/* <p className="card-text">Atributo 1</p>
-                <p className="card-text">Atributo 2</p>
-                <p className="card-text">Atributo 3</p> */}
                 <div className="d-flex justify-content-between">
                     <button className="btn btn-outline-primary">Learn More!</button>
                     <button className="btn btn-outline-warning">
