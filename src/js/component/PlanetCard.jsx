@@ -1,9 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router";
 
 const PlanetCard = ({ uid }) => {
     const { actions } = useContext(Context);
     const [planet, setPlanet] = useState(null);
+
+    const navigate = useNavigate();
+
+    const showInfo = () => {
+        navigate(`/planets/${uid}`);
+    }
 
     useEffect(() => {
         const fetchPlanet = async () => {
@@ -35,7 +42,9 @@ const PlanetCard = ({ uid }) => {
                 <p className="card-text">Population: {planet.properties.population}</p>
                 <p className="card-text">Climate: {planet.properties.climate}</p>
                 <div className="d-flex justify-content-between">
-                    <button className="btn btn-outline-primary">Learn More!</button>
+                    <button className="btn btn-outline-primary" onClick={showInfo}>
+                        Learn More!
+                    </button>
                     <button className="btn btn-outline-warning">
                         <i className="fa-regular fa-heart"></i>
                     </button>

@@ -1,29 +1,28 @@
-import React, { useContext, useState, useEffect, useActionState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router";
 
-import placeholder from "../../img/infoplaceholderimg.png"
+import placeholder from "../../img/infoplaceholderimg.png";
 
-const PersonInfo = () => {
-
+const PlanetInfo = () => {
     const { actions } = useContext(Context);
 
     const { uid } = useParams();
-    const [person, setPerson] = useState(null);
+    const [planet, setPlanet] = useState(null);
 
     useEffect(() => {
-        const fetchPerson = async () => {
+        const fetchPlanet = async () => {
             try {
-                const data = await actions.getSinglePeople(uid);
-                setPerson(data);
+                const data = await actions.getSinglePlanet(uid);
+                setPlanet(data);
             } catch (error) {
-                console.log("Error fetching person:", error);
+                console.log("Error fetching planet:", error);
             }
         }
-        fetchPerson();
+        fetchPlanet();
     }, [uid])
 
-    if (!person) {
+    if (!planet) {
         return <p>Loading...</p>
     }
 
@@ -34,7 +33,7 @@ const PersonInfo = () => {
                     <img className="img img-fluid " src={placeholder} alt="" />
                 </div>
                 <div className="col-6">
-                    <h1 className="text text-center">{person.properties.name}</h1>
+                    <h1 className="text text-center">{planet.properties.name}</h1>
                     <p className="text text-center">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -49,32 +48,32 @@ const PersonInfo = () => {
 
                     <div className="col-2">
                         <h6>Name</h6>
-                        <p>{person.properties.name}</p>
+                        <p>{planet.properties.name}</p>
                     </div>
 
                     <div className="col-2">
-                        <h6>Birth Year</h6>
-                        <p>{person.properties.birth_year}</p>
+                        <h6>Diameter</h6>
+                        <p>{planet.properties.diameter}</p>
                     </div>
 
                     <div className="col-2">
-                        <h6>Gender</h6>
-                        <p>{person.properties.gender}</p>
+                        <h6>Orbital Period</h6>
+                        <p>{planet.properties.orbital_period}</p>
                     </div>
 
                     <div className="col-2">
-                        <h6>Height</h6>
-                        <p>{person.properties.height}</p>
+                        <h6>Gravity</h6>
+                        <p>{planet.properties.gravity}</p>
                     </div>
 
                     <div className="col-2">
-                        <h6>Skin Color</h6>
-                        <p>{person.properties.skin_color}</p>
+                        <h6>Population</h6>
+                        <p>{planet.properties.population}</p>
                     </div>
 
                     <div className="col-2">
-                        <h6>Eye Color</h6>
-                        <p>{person.properties.eye_color}</p>
+                        <h6>Climate</h6>
+                        <p>{planet.properties.climate}</p>
                     </div>
 
                 </div>
@@ -84,4 +83,4 @@ const PersonInfo = () => {
     )
 }
 
-export default PersonInfo;
+export default PlanetInfo;
