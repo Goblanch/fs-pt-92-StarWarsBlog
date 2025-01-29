@@ -1,10 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext.js";
+import { useNavigate } from "react-router";
 
 const InfoCard = ({ uid }) => {
 
     const { actions } = useContext(Context);
     const [person, setPerson] = useState(null);
+
+    const navigate = useNavigate();
+
+    const showInfo = () => {
+        navigate(`/people/${uid}`);
+    }
 
     useEffect(() => {
         const fetchPerson = async () => {
@@ -36,7 +43,9 @@ const InfoCard = ({ uid }) => {
                 <p className="card-text">Hair color: {person.properties.hair_color}</p>
                 <p className="card-text">Eye Color: {person.properties.eye_color}</p>
                 <div className="d-flex justify-content-between">
-                    <button className="btn btn-outline-primary">Learn More!</button>
+                    <button className="btn btn-outline-primary" onClick={showInfo}>
+                        Learn More!
+                    </button>
                     <button className="btn btn-outline-warning">
                         <i className="fa-regular fa-heart"></i>
                     </button>
