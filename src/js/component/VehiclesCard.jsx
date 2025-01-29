@@ -1,9 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router";
 
 const VehiclesCard = ({ uid }) => {
     const { actions } = useContext(Context);
     const [vehicle, setVehicle] = useState(null);
+
+    const navigate = useNavigate();
+
+    const showInfo = () => {
+        navigate(`/vehicles/${uid}`);
+    }
 
     useEffect(() => {
         const fetchVehicle = async () => {
@@ -35,7 +42,9 @@ const VehiclesCard = ({ uid }) => {
                 <p className="card-text">Class: {vehicle.properties.vehicle_class}</p>
                 <p className="card-text">Cost: {vehicle.properties.cost_in_credits}</p>
                 <div className="d-flex justify-content-between">
-                    <button className="btn btn-outline-primary">Learn More!</button>
+                    <button className="btn btn-outline-primary" onClick={showInfo}>
+                        Learn More!
+                    </button>
                     <button className="btn btn-outline-warning">
                         <i className="fa-regular fa-heart"></i>
                     </button>
