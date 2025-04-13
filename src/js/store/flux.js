@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			people: [],
 			planets: [],
 			vehicles: [],
+			favourites: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -108,6 +109,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				} catch (error) {
 					console.log(error);
+				}
+			},
+
+			toggleFavourite: (item, category) => {
+				const store = getStore();
+				const favourites = store.favourites;
+
+				// Identificar si el elemento ya está en favoritos
+				const isAlreadyFavourite = favourites.some(
+					fav => fav.properties.name === item.properties.name && fav.category === category
+				);
+
+				if (isAlreadyFavourite) {
+					// Si ya está, eliminarlo
+					const updatedFavourites = favourites.filter(
+						fav => fav.properties.name !== item.properties.name || fav.category !== category
+					);
+					setStore({ favourites: updatedFavourites });
+					console.log(`${item.properties.name} eliminado de favoritos.`);
+				} else {
+					// Si no está, añadirlo con la categoría
+					setStore({ favourites: [...favourites, { ...item, category }] });
+					console.log(`${item.properties.name} añadido a favoritos como ${category}.`);
 				}
 			}
 		}

@@ -3,13 +3,18 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router";
 
 const VehiclesCard = ({ uid }) => {
-    const { actions } = useContext(Context);
+    const { actions, store } = useContext(Context);
     const [vehicle, setVehicle] = useState(null);
 
     const navigate = useNavigate();
 
     const showInfo = () => {
         navigate(`/vehicles/${uid}`);
+    }
+
+    const addToFavourites = () => {
+        actions.toggleFavourite(vehicle, "vehicles");
+        console.log(store.favourites);
     }
 
     useEffect(() => {
@@ -45,7 +50,7 @@ const VehiclesCard = ({ uid }) => {
                     <button className="btn btn-outline-primary" onClick={showInfo}>
                         Learn More!
                     </button>
-                    <button className="btn btn-outline-warning">
+                    <button className="btn btn-outline-warning" onClick={addToFavourites}>
                         <i className="fa-regular fa-heart"></i>
                     </button>
                 </div>

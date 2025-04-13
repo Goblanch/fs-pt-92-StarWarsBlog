@@ -4,13 +4,18 @@ import { useNavigate } from "react-router";
 
 const InfoCard = ({ uid }) => {
 
-    const { actions } = useContext(Context);
+    const { actions, store } = useContext(Context);
     const [person, setPerson] = useState(null);
 
     const navigate = useNavigate();
 
     const showInfo = () => {
         navigate(`/people/${uid}`);
+    }
+
+    const addToFavourites = () => {
+        actions.toggleFavourite(person, "people");
+        console.log(store.favourites);
     }
 
     useEffect(() => {
@@ -46,7 +51,7 @@ const InfoCard = ({ uid }) => {
                     <button className="btn btn-outline-primary" onClick={showInfo}>
                         Learn More!
                     </button>
-                    <button className="btn btn-outline-warning">
+                    <button className="btn btn-outline-warning" onClick={addToFavourites}>
                         <i className="fa-regular fa-heart"></i>
                     </button>
                 </div>
